@@ -1,0 +1,127 @@
+/* ==========================================================================
+   WeatherApp — Stylesheet
+   Styled section by section. Mobile-first: base rules are the small-screen
+   layout; desktop overrides live in min-width media queries added as we
+   style each section.
+   ========================================================================== */
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Neutrals */
+  --neutral-900: hsl(243, 96%, 9%);
+  --neutral-800: hsl(243, 27%, 20%);
+  --neutral-700: hsl(243, 23%, 24%);
+  --neutral-600: hsl(243, 23%, 30%);
+  --neutral-300: hsl(240, 6%, 70%);
+  --neutral-200: hsl(250, 6%, 84%);
+  --neutral-0: hsl(0, 0%, 100%);
+
+  /* Accents */
+  --orange-500: hsl(28, 100%, 52%);
+  --blue-500: hsl(233, 67%, 56%);
+  --blue-700: hsl(248, 70%, 36%);
+
+  /* Semantic aliases */
+  --color-bg: var(--neutral-900);
+  --color-surface: var(--neutral-800);
+  --color-surface-raised: var(--neutral-700);
+  --color-border: var(--neutral-600);
+  --color-text: var(--neutral-0);
+  --color-text-muted: var(--neutral-300);
+  --color-accent: var(--blue-500);
+  --color-accent-hover: var(--blue-700);
+
+  /* Type */
+  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --fs-body: 16px;
+
+  /* Layout */
+  --max-width: 1200px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+img, picture, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Main Container
+   ========================================================================== */
+.weather-site {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+@media (min-width: 720px) {
+  .weather-site {
+    padding: var(--space-5) var(--space-5) var(--space-7);
+  }
+}
