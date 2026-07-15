@@ -340,3 +340,61 @@ ul {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* ==========================================================================
+   Daily Forecast
+   ========================================================================== */
+.daily h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.daily-forecast {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.daily-forecast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: background-color 0.15s ease;
+}
+
+.daily-forecast-item:hover {
+  background-color: var(--color-surface-raised);
+}
+
+.daily-forecast-day {
+  font-weight: 500;
+}
+
+.daily-forecast-item img {
+  width: 40px;
+  height: 40px;
+}
+
+.daily-forecast-range {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.9375rem;
+}
+
+.daily-forecast-mintemp {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 992px) {
+  .daily-forecast {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
