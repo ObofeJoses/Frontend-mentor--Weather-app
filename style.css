@@ -248,3 +248,63 @@ ul {
     grid-template-columns: 2fr 1fr;
   }
 }
+
+/* ==========================================================================
+   Current Weather Card
+   ========================================================================== */
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background-image: linear-gradient(135deg, var(--blue-500), var(--blue-700));
+  background-size: cover;
+}
+
+.current-weather-details h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.375rem;
+}
+
+.current-weather-details p {
+  color: var(--neutral-200);
+  margin-top: var(--space-1);
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.weather-info img {
+  width: 64px;
+  height: 64px;
+}
+
+.weather-info span {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.5rem;
+  font-style: italic;
+  line-height: 1;
+}
+
+@media (min-width: 992px) {
+  .weather-card {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: var(--space-6);
+    min-height: 220px;
+  }
+
+  .weather-info {
+    justify-content: flex-end;
+  }
+}
