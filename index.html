@@ -14,7 +14,131 @@
                 <img src="./assets/images/logo.svg" alt="website logo">
 
             </div>
+            <div class="units-menu">
+                <button type="button" class="units-menu-trigger" id="unitsTrigger">
+                    <img src="./assets/images/downloaded icons/settings.svg" alt="gear icon">
+                    <span>Units</span>
+                    <img src="./assets/images/downloaded icons/chevron-down.svg" alt="">
+                </button>
+                <ul class="dropdown-panel ">
+                    <li><button type="button" class="dropdown-panel-item units-menu-switch" id="unitsSwitchAll">Switch to Imperial</button></li>
+                    <li class="dropdown-panel-group-label">Temperature</li>
+                    <li><button type="button" class="dropdown-panel-item units-option">Celsius</button></li>
+                    <li><button type="button" class="dropdown-panel-item units-option">Fahrenheit</button></li>
+                    <li class="dropdown-panel-group-label">Wind Speed</li>
+                    <li><button type="button" class="dropdown-panel-item units-option"></button></li>
+                    <li><button type="button" class="dropdown-panel-item units-option"></button></li>
+                    <li class="dropdown-panel-group-label">Precipitation</li>
+                    <li><button type="button" class="dropdown-panel-item units-option">Millimeters(mm)</button></li>
+                    <li><buttontype="button" class="dropdown-panel-item units-option">Inches(In)</button></li>
+                </ul>
+            </div>
         </header>
+        <main>
+            <h1 class="">How's the sky looking today?</h1>
+            <div>
+                <form class="search-form" id="searchForm">
+                    <div>
+                        <img src="./assets/images/downloaded icons/search.svg" alt="search icon">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            class="search-bar-input" 
+                            placeholder="Enter a city name" 
+                            >
+                    </div>  
+                    <button type="submit" class="search-bar-submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+            <div>
+                <div class="main-weather">
+                    <div class="main">
+                        <section class="Weather card">
+                            <div class="current-weather-details">
+                                <h2>Berli, Germany</h2>
+                                <p>Tuesday, Aug 5, 2025</p>
+                            </div>
+                            <div class="weather-info">
+                                <img src="./assets/images/icon-sunny.webp" alt="current weather icon">
+                                <span>20</span>
+                            </div>
+
+                        </section>
+                        <section class="stats-card-grid">
+                            <div class="stat-card">
+                                <p class="stat-card-label">Feels like</p>
+                                <p class="stat-card-value">--</p>
+                            </div>
+                            <div class="stat-card">
+                                <p class="stat-card-label">Humidity</p>
+                                <p class="stat-card-value">--</p>
+                            </div>
+                            <div class="stat-card">
+                                <p class="stat-card-label">Wind</p>
+                                <p class="stat-card-value">--</p>
+                            </div>
+                            <div class="statcard">
+                                <p class="stat-card-label">Precipitation</p>
+                                <p class="stat-card-value">--</p>
+                            </div>
+
+                        </section>
+                    </div>
+                    <section class="daily">
+                        <h2>Daily Forecast</h2>
+                        <ul class="daily-forecast">
+                            <li class="daily-forecast-item">
+                                <p class="daily-forecast-day">Wed</p>
+                                <img src="./assets/images/icon-sunny.webp" alt="weather icon">
+                                <div>
+                                    <p class="daily-forecast-maxtemp">20</p>
+                                    <p class="daily-forecast-mintemp">10</p>
+                                </div>
+                            </li>
+                            <li class="daily-forecast-item">
+                                <p class="daily-forecast-day">Thu</p>
+                                <img src="./assets/images/icon-sunny.webp" alt="weather icon">
+                                <div>
+                                    <p class="daily-forecast-maxtemp">20</p>
+                                    <p class="daily-forecast-mintemp">10</p>
+                                </div>
+                            </li>
+                            <li class="daily-forecast-item">
+                                <p class="daily-forecast-day">Fri</p>
+                                <img src="./assets/images/icon-sunny.webp" alt="weather icon">
+                                <div>
+                                    <p class="daily-forecast-maxtemp">20</p>
+                                    <p class="daily-forecast-mintemp">10</p>
+                                </div>
+                            </li>
+                            <li class="daily-forecast-item">
+                                <p class="daily-forecast-day">Sat</p>
+                                <img src="./assets/images/icon-sunny.webp" alt="weather icon">
+                                <div>
+                                    <p class="daily-forecast-maxtemp">20</p>
+                                    <p class="daily-forecast-mintemp">10</p>
+                                </div>
+                            </li>
+                            <li class="daily-forecast-item">
+                                <p class="daily-forecast-day">Sun</p>
+                                <img src="./assets/images/icon-sunny.webp" alt="weather icon">
+                                <div>
+                                    <p class="daily-forecast-maxtemp">20</p>
+                                    <p class="daily-forecast-mintemp">10</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </section>
+                </div>
+                <aside class="hourly update"></aside>
+            </div>
+            
+            
+        </main>
+        
 
     </div>
     
