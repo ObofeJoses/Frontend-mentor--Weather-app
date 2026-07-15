@@ -102,15 +102,6 @@ ul {
   border-radius: var(--radius-sm);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* ==========================================================================
    Main Container
    ========================================================================== */
@@ -227,5 +218,33 @@ ul {
 
   .search-bar-submit {
     padding: 0 var(--space-5);
+  }
+}
+
+/* ==========================================================================
+   Weather Dashboard
+   ========================================================================== */
+.weather-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.main-weather {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+@media (min-width: 992px) {
+  .weather-dashboard {
+    grid-template-columns: 2fr 1fr;
   }
 }
