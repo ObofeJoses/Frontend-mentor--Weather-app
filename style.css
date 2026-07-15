@@ -120,8 +120,112 @@ ul {
   padding: var(--space-4) var(--space-4) var(--space-6);
 }
 
-@media (min-width: 720px) {
+@media (min-width: 992px) {
   .weather-site {
     padding: var(--space-5) var(--space-5) var(--space-7);
+  }
+}
+
+/* ==========================================================================
+   Hero Heading
+   ========================================================================== */
+.hero-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  text-align: left;
+  letter-spacing: -0.01em;
+  margin-inline: 0;
+  margin-bottom: var(--space-5);
+  max-width: none;
+}
+
+@media (min-width: 992px) {
+  .hero-heading {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-inline: auto;
+    margin-bottom: var(--space-6);
+    max-width: 20ch;
+  }
+}
+
+/* ==========================================================================
+   Search Form
+   ========================================================================== */
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: var(--space-5);
+}
+
+.search-form-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease;
+}
+
+.search-form-field:focus-within {
+  border-color: var(--color-text);
+}
+
+.search-form-field img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.search-bar-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 14px 0;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.search-bar-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-bar-input:focus {
+  outline: none;
+}
+
+.search-bar-submit {
+  padding: var(--space-3);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.search-bar-submit:hover {
+  background-color: var(--color-accent-hover);
+}
+
+@media (min-width: 992px) {
+  .search-form {
+    flex-direction: row;
+    margin-bottom: var(--space-6);
+  }
+
+  .search-bar-submit {
+    padding: 0 var(--space-5);
   }
 }
