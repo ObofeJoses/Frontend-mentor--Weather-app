@@ -221,6 +221,36 @@ ul {
   }
 }
 
+/* ---------- Search suggestions ---------- */
+.suggestions-list {
+  max-width: 600px;
+  margin: calc(var(--space-3) * -1) auto var(--space-5);
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.suggestions-list-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.suggestions-list-item:hover,
+.suggestions-list-item.is-active {
+  background-color: var(--color-border);
+}
+
+.suggestions-list-empty,
+.suggestions-list-error {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-muted);
+}
+
 /* ==========================================================================
    Weather Dashboard
    ========================================================================== */
@@ -557,8 +587,8 @@ ul {
 }
 
 .units-menu-trigger img:last-child {
-  width: 20px;
-  height: 16px;
+  width: 10px;
+  height: 6px;
 }
 
 .units-menu .dropdown-panel {
