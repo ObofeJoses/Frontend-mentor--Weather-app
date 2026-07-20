@@ -1,4 +1,3 @@
-// WeatherApp — script.js
 // Wired up feature by feature. This first pass just handles opening/closing
 // the two dropdowns (Units menu + Hourly day-picker). No data fetching yet.
 
@@ -55,10 +54,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ---------------------------------------------------------------------
-// City search (Open-Meteo geocoding — free, no API key)
+// City search (uses geocodeCity/formatPlaceLabel from weather-api.js)
 // ---------------------------------------------------------------------
-
-const GEOCODING_ENDPOINT = 'https://geocoding-api.open-meteo.com/v1/search';
 
 const searchForm = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
@@ -67,26 +64,6 @@ const suggestionsList = document.getElementById('suggestionsList');
 let debounceTimer = null;
 let activeIndex = -1;
 let currentResults = [];
-
-async function geocodeCity(query) {
-  const url = new URL(GEOCODING_ENDPOINT);
-  url.searchParams.set('name', query);
-  url.searchParams.set('count', '5');
-  url.searchParams.set('language', 'en');
-  url.searchParams.set('format', 'json');
-
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Geocoding request failed');
-  const data = await response.json();
-  return data.results || [];
-}
-
-function formatPlaceLabel(result) {
-  const parts = [result.name];
-  if (result.admin1 && result.admin1 !== result.name) parts.push(result.admin1);
-  if (result.country) parts.push(result.country);
-  return parts.join(', ');
-}
 
 function closeSuggestions() {
   suggestionsList.hidden = true;
