@@ -189,5 +189,91 @@ searchForm.addEventListener('submit', async (e) => {
  * up in a later step — for now this is just the hand-off point.
  */
 function handleLocationSelected(result) {
-  console.log('Location selected:', result);
+  const location = {
+    name: result.name,
+    admin1: result.admin1,
+    country: result.country,
+    latitude: result.latitude,
+    longitude: result.longitude,
+  };
+  fetchAndRenderWeather(location);
+}
+
+// ---------------------------------------------------------------------
+// Weather fetching + rendering
+// ---------------------------------------------------------------------
+
+const currentUnits = { temperature: 'celsius', wind: 'kmh', precipitation: 'mm' };
+
+let lastLocation = null;
+
+const weatherEls = {
+  placeName: document.getElementById('placeName'),
+  placeDate: document.getElementById('placeDate'),
+  icon: document.getElementById('weatherIcon'),
+  temp: document.getElementById('currentTemp'),
+  feelsLike: document.getElementById('feelsLike'),
+  humidity: document.getElementById('humidity'),
+  wind: document.getElementById('wind'),
+  precipitation: document.getElementById('precipitation'),
+};
+
+function placeLabel(location) {
+  const parts = [location.name];
+  if (location.country) parts.push(location.country);
+  return parts.join(', ');
+}
+
+function formatDate(isoLocalDateTime) {
+  const [datePart] = isoLocalDateTime.split('T');
+  const [year, month, day] = datePart.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+function formatTemp(value) {
+  return `${Math.round(value)}°`;
+}
+
+function formatWind(value) {
+  const unitLabel = currentUnits.wind === 'kmh' ? 'km/h' : 'mph';
+  return `${Math.round(value)} ${unitLabel}`;
+}
+
+function formatPrecipitation(value) {
+  const unitLabel = currentUnits.precipitation === 'mm' ? 'mm' : 'in';
+  const decimals = currentUnits.precipitation === 'mm' ? 0 : 2;
+  return `${Number(value).toFixed(decimals)} ${unitLabel}`;
+}
+
+function renderCurrentWeather(data, location) {
+  const { current } = data;
+  const weather = describeWeatherCode(current.weather_code);
+
+  weatherEls.placeName.textContent = placeLabel(location);
+  weatherEls.placeDate.textContent = formatDate(current.time);
+  weatherEls.temp.textContent = formatTemp(current.temperature_2m);
+  weatherEls.icon.src = weatherIconPath(current.weather_code);
+  weatherEls.icon.alt = weather.label;
+
+  weatherEls.feelsLike.textContent = formatTemp(current.apparent_temperature);
+  weatherEls.humidity.textContent = `${Math.round(current.relative_humidity_2m)}%`;
+  weatherEls.wind.textContent = formatWind(current.wind_speed_10m);
+  weatherEls.precipitation.textContent = formatPrecipitation(current.precipitation);
+}
+
+async function fetchAndRenderWeather(location) {
+  lastLocation = location;
+  try {
+    const data = await getForecast(location.latitude, location.longitude, currentUnits);
+    renderCurrentWeather(data, location);
+  } catch (err) {
+    console.error('Could not fetch weather:', err);
+  }
 }
