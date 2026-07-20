@@ -46,7 +46,7 @@ async function getForecast(latitude, longitude, units) {
   url.searchParams.set('hourly', 'temperature_2m,weather_code');
   url.searchParams.set('daily', 'weather_code,temperature_2m_max,temperature_2m_min');
   url.searchParams.set('timezone', 'auto');
-  url.searchParams.set('forecast_days', '7');
+  url.searchParams.set('forecast_days', '6');
   url.searchParams.set('temperature_unit', units.temperature);
   url.searchParams.set('wind_speed_unit', units.wind);
   url.searchParams.set('precipitation_unit', units.precipitation);

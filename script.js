@@ -268,11 +268,102 @@ function renderCurrentWeather(data, location) {
   weatherEls.precipitation.textContent = formatPrecipitation(current.precipitation);
 }
 
+function weekdayShort(isoDate) {
+  const [year, month, day] = isoDate.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+}
+
+function weekdayFull(isoDate) {
+  const [year, month, day] = isoDate.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.toLocaleDateString('en-US', { weekday: 'long', timeZone: 'UTC' });
+}
+
+function formatHourLabel(isoDateTime) {
+  const timePart = isoDateTime.split('T')[1];
+  let hour = parseInt(timePart.split(':')[0], 10);
+  const suffix = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12;
+  if (hour === 0) hour = 12;
+  return `${hour} ${suffix}`;
+}
+
+const dailyForecastList = document.querySelector('.daily-forecast');
+const hourlyForecastList = document.querySelector('.hourly-forecast-list');
+const selectedDayLabel = document.getElementById('selectedDayLabel');
+
+let lastForecastData = null;
+let activeDayIndex = 0;
+
+function renderDailyForecast(data) {
+  const { time, weather_code, temperature_2m_max, temperature_2m_min } = data.daily;
+
+  dailyForecastList.innerHTML = time
+    .map((isoDate, i) => {
+      const weather = describeWeatherCode(weather_code[i]);
+      return `
+        <li class="daily-forecast-item">
+          <p class="daily-forecast-day">${weekdayShort(isoDate)}</p>
+          <img src="${weatherIconPath(weather_code[i])}" alt="${weather.label}">
+          <div class="daily-forecast-range">
+            <p class="daily-forecast-maxtemp">${formatTemp(temperature_2m_max[i])}</p>
+            <p class="daily-forecast-mintemp">${formatTemp(temperature_2m_min[i])}</p>
+          </div>
+        </li>`;
+    })
+    .join('');
+}
+
+function renderHourlyForecast(data, dayIndex) {
+  const dayDate = data.daily.time[dayIndex];
+  const { time, temperature_2m, weather_code } = data.hourly;
+
+  const rows = time
+    .map((isoDateTime, i) => ({ isoDateTime, i }))
+    .filter(({ isoDateTime }) => isoDateTime.startsWith(dayDate));
+
+  hourlyForecastList.innerHTML = rows
+    .map(({ isoDateTime, i }) => {
+      const weather = describeWeatherCode(weather_code[i]);
+      return `
+        <li class="hourly-forecast-item">
+          <span class="hourly-forecast-item-left">
+            <img src="${weatherIconPath(weather_code[i])}" alt="${weather.label}">
+            <span>${formatHourLabel(isoDateTime)}</span>
+          </span>
+          <span>${formatTemp(temperature_2m[i])}</span>
+        </li>`;
+    })
+    .join('');
+}
+
+function renderDayMenu(data) {
+  dayMenuList.innerHTML = data.daily.time
+    .map((isoDate, i) => `<li><button type="button" class="dropdown-panel-item" data-index="${i}">${weekdayFull(isoDate)}</button></li>`)
+    .join('');
+
+  dayMenuList.querySelectorAll('.dropdown-panel-item').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeDayIndex = Number(btn.dataset.index);
+      selectedDayLabel.textContent = weekdayFull(data.daily.time[activeDayIndex]);
+      renderHourlyForecast(data, activeDayIndex);
+      closeMenu(dayTrigger, dayMenuList);
+    });
+  });
+}
+
 async function fetchAndRenderWeather(location) {
   lastLocation = location;
   try {
     const data = await getForecast(location.latitude, location.longitude, currentUnits);
+    lastForecastData = data;
+    activeDayIndex = 0;
     renderCurrentWeather(data, location);
+    renderDailyForecast(data);
+    renderDayMenu(data);
+    selectedDayLabel.textContent = weekdayFull(data.daily.time[0]);
+    renderHourlyForecast(data, 0);
   } catch (err) {
     console.error('Could not fetch weather:', err);
   }
