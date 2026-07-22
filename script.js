@@ -368,3 +368,47 @@ async function fetchAndRenderWeather(location) {
     console.error('Could not fetch weather:', err);
   }
 }
+
+// ---------------------------------------------------------------------
+// Units menu
+// ---------------------------------------------------------------------
+
+const unitsSwitchAll = document.getElementById('unitsSwitchAll');
+const unitOptionButtons = unitsMenuList.querySelectorAll('.units-option');
+
+function refreshUnitsMenuUI() {
+  unitOptionButtons.forEach((btn) => {
+    const isSelected = currentUnits[btn.dataset.group] === btn.dataset.value;
+    btn.classList.toggle('is-selected', isSelected);
+  });
+  const isImperial = currentUnits.temperature === 'fahrenheit';
+  unitsSwitchAll.textContent = isImperial ? 'Switch to Metric' : 'Switch to Imperial';
+}
+
+function applyUnitsAndRefresh() {
+  refreshUnitsMenuUI();
+  if (lastLocation) fetchAndRenderWeather(lastLocation);
+}
+
+unitOptionButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    currentUnits[btn.dataset.group] = btn.dataset.value;
+    applyUnitsAndRefresh();
+  });
+});
+
+unitsSwitchAll.addEventListener('click', () => {
+  const isImperial = currentUnits.temperature === 'fahrenheit';
+  if (isImperial) {
+    currentUnits.temperature = 'celsius';
+    currentUnits.wind = 'kmh';
+    currentUnits.precipitation = 'mm';
+  } else {
+    currentUnits.temperature = 'fahrenheit';
+    currentUnits.wind = 'mph';
+    currentUnits.precipitation = 'in';
+  }
+  applyUnitsAndRefresh();
+});
+
+refreshUnitsMenuUI();

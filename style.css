@@ -436,6 +436,7 @@ ul {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
+  max-height: 592px;
 }
 
 .hourly-forecast-header {
